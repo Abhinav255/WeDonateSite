@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { FaSignOutAlt } from 'react-icons/fa';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -7,6 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 export default function Navbar() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation(); // Use useLocation to get the current path
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -44,7 +45,7 @@ export default function Navbar() {
             <span className="icon-bar"></span>
           </button>
 
-          <a className="navbar-brand" >
+          <a className="navbar-brand">
             <img src="assets/images/we donate-logo.png" alt="" />
           </a>
         </div>
@@ -52,37 +53,55 @@ export default function Navbar() {
         <div id="navbar" className="navbar-collapse collapse pull-right">
           <ul className="nav navbar-nav">
             <li>
-              <Link className="is-active" to="/">
-                HOME
-              </Link>
+              <Link
+                className={location.pathname === '/' ? 'is-active' : ''}
+                to="/"
+              >HOME</Link>
             </li>
             <li>
-              <Link to="/about">ABOUT</Link>
+              <Link
+                className={location.pathname === '/about' ? 'is-active' : ''}
+                to="/about"
+              >ABOUT</Link>
             </li>
             <li>
-              <Link to="/gallery">GALLERY</Link>
+              <Link
+                className={location.pathname === '/gallery' ? 'is-active' : ''}
+                to="/gallery"
+              >GALLERY</Link>
             </li>
             <li>
-              <Link to="/contact">CONTACT</Link>
+              <Link
+                className={location.pathname === '/contact' ? 'is-active' : ''}
+                to="/contact"
+              >CONTACT</Link>
             </li>
             {isAuthenticated ? (
               <>
                 <li>
-                  <Link to="/my-donations" className="btn btn-primary">
-                    YOUR DONATIONS
-                  </Link>
+                  <Link
+                    className={location.pathname === '/my-donations' ? 'is-active' : ''}
+                    to="/my-donations"
+                    className="btn btn-primary"
+                  >YOUR DONATIONS</Link>
                 </li>
                 <li>
-                  <button onClick={handleSignOut} className="btn btn-link signout-button" style={{ marginTop: "15px" }}>
+                  <button
+                    onClick={handleSignOut}
+                    className="btn btn-link signout-button"
+                    style={{ marginTop: '15px' }}
+                  >
                     <FaSignOutAlt /> Sign Out
                   </button>
                 </li>
               </>
             ) : (
               <li>
-                <Link to="/signin" className="btn btn-primary">
-                  SIGN IN
-                </Link>
+                <Link
+                  className={location.pathname === '/signin' ? 'is-active' : ''}
+                  to="/signin"
+                  className="btn btn-primary"
+                >SIGN IN</Link>
               </li>
             )}
           </ul>
