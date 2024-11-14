@@ -52,9 +52,9 @@ export default function Navbar() {
         <div id="navbar" className="navbar-collapse collapse pull-right">
           <ul className="nav navbar-nav">
             <li>
-              <a className="is-active" >
+              <Link className="is-active" to="/">
                 HOME
-              </a>
+              </Link>
             </li>
             <li>
               <Link to="/about">ABOUT</Link>
